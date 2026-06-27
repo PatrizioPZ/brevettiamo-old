@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servizi Singoli - BrevettIAmo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pergamena: #F4EBE1;
+            --pergamena-scura: #E8DCC8;
+            --oro: #C5A059;
+            --oro-chiaro: #D4B87A;
+            --oro-scuro: #9A7B3D;
+            --rosso: #A63A2B;
+            --rosso-scuro: #7A2A1F;
+            --ferro: #4A4A4A;
+            --ferro-chiaro: #6A6A6A;
+            --nero: #1A1A1A;
+            --bianco: #FAF8F5;
+            --ombra: rgba(26, 26, 26, 0.15);
+            --verde: #2D6A4F;
+            --verde-chiaro: #40916C;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lora', Georgia, serif;
+            background: var(--pergamena);
+            color: var(--ferro);
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--pergamena) 0%, var(--pergamena-scura) 100%);
+            border-bottom: 3px solid var(--oro);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--ferro);
+            letter-spacing: 2px;
+        }
+
+        .logo-text span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--oro);
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            font-family: 'Cinzel', serif;
+            text-decoration: none;
+            color: var(--ferro);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover { color: var(--oro); }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--pergamena-scura) 0%, var(--pergamena) 100%);
+            border-bottom: 3px solid var(--oro);
+        }
+
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--ferro);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            color: var(--ferro-chiaro);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-section {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--ferro);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            color: var(--ferro-chiaro);
+            font-style: italic;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bianco);
+            border: 2px solid var(--pergamena-scura);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--oro);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before { transform: scaleX(1); }
+
+        .service-card:hover {
+            border-color: var(--oro);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--ombra);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .service-name {
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            color: var(--ferro);
+            letter-spacing: 1px;
+        }
+
+        .service-status {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        .status-beta { background: var(--oro); color: var(--nero); }
+        .status-suspended { background: var(--rosso); color: var(--bianco); }
+
+        .service-desc {
+            color: var(--ferro-chiaro);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-reliability { margin-bottom: 1rem; }
+
+        .reliability-label {
+            font-size: 0.75rem;
+            color: var(--ferro-chiaro);
+            margin-bottom: 0.3rem;
+            font-family: 'Cinzel', serif;
+        }
+
+        .reliability-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--pergamena-scura);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .reliability-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .reliability-high { background: var(--verde); }
+        .reliability-medium { background: var(--oro); }
+
+        .reliability-text {
+            font-size: 0.8rem;
+            color: var(--ferro);
+            margin-top: 0.3rem;
+            font-weight: 600;
+        }
+
+        .service-savings {
+            background: var(--bianco);
+            border: 1px solid var(--pergamena-scura);
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .savings-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: var(--oro);
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .savings-value { color: var(--verde); font-weight: 600; }
+
+        .service-price {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--oro);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-note {
+            font-size: 0.75rem;
+            color: var(--ferro-chiaro);
+            font-family: 'Lora', serif;
+        }
+
+        .service-cta { width: 100%; text-align: center; }
+
+        .btn {
+            font-family: 'Cinzel', serif;
+            padding: 0.8rem 1.5rem;
+            border: 2px solid var(--oro);
+            background: transparent;
+            color: var(--oro);
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover { background: var(--oro); color: var(--bianco); }
+
+        .btn-primary { background: var(--oro); color: var(--bianco); }
+        .btn-primary:hover { background: var(--oro-scuro); }
+
+        /* TOOLTIP HOVER */
+        [data-tooltip] { position: relative; cursor: help; }
+
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: calc(100% + 15px);
+            left: 50%;
+            transform: translateX(-50%) scale(0.95);
+            background: var(--pergamena);
+            color: var(--ferro);
+            border: 2px solid var(--oro);
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 300px;
+            max-width: 400px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            text-align: left;
+            white-space: normal;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        [data-tooltip]::before {
+            content: '';
+            position: absolute;
+            bottom: calc(100% + 5px);
+            left: 50%;
+            transform: translateX(-50%);
+            border: 10px solid transparent;
+            border-top-color: var(--oro);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        [data-tooltip]:hover::before,
+        [data-tooltip]:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) scale(1);
+        }
+
+        /* PANNELLO ESPANDIBILE */
+        .tooltip-pannello {
+            margin-top: 12px;
+            padding: 16px;
+            background: var(--pergamena-scura);
+            border: 1px solid var(--oro);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--ferro);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tooltip-pannello h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--oro-scuro);
+            margin: 0 0 8px 0;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--oro);
+        }
+
+        .tooltip-pannello p { margin: 0 0 8px 0; }
+        .tooltip-pannello ol, .tooltip-pannello ul { margin: 6px 0; padding-left: 18px; }
+        .tooltip-pannello li { margin: 3px 0; }
+        .tooltip-pannello table { width: 100%; border-collapse: collapse; margin: 8px 0; font-size: 0.8rem; }
+        .tooltip-pannello td { padding: 4px 8px; border: 1px solid var(--oro); }
+        .tooltip-pannello td:first-child { background: var(--bianco); font-weight: 600; width: 45%; }
+
+        .btn-chiudi {
+            padding: 6px 14px;
+            border: 1px solid var(--oro);
+            border-radius: 4px;
+            background: var(--bianco);
+            color: var(--ferro);
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-chiudi:hover { background: var(--oro); color: var(--bianco); }
+
+        .btn-inizia {
+            padding: 6px 14px;
+            border: 1px solid var(--oro-scuro);
+            border-radius: 4px;
+            background: var(--oro-scuro);
+            color: var(--bianco);
+            font-family: 'Cinzel', serif;
+            font-size: 0.75rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+
+        .btn-inizia:hover { background: var(--oro); }
+
+        @media (max-width: 768px) {
+            [data-tooltip]::after {
+                left: 10px;
+                right: 10px;
+                transform: none;
+                min-width: auto;
+                max-width: none;
+                bottom: calc(100% + 10px);
+            }
+            [data-tooltip]::before { display: none; }
+        }
+
+        .service-hint {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 8px 0;
+            border-top: 1px dashed var(--oro);
+            font-size: 0.75rem;
+            color: var(--ferro-chiaro);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0.7;
+        }
+
+        .service-hint:hover {
+            opacity: 1;
+            color: var(--oro);
+        }
+
+        .hint-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--ferro-chiaro);
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: bold;
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .service-hint:hover .hint-icon {
+            border-color: var(--oro);
+            background: var(--oro);
+            color: var(--bianco);
+        }
+
+        .hint-text {
+            font-style: italic;
+            letter-spacing: 0.3px;
+        }
+
+        footer {
+            background: var(--ferro);
+            color: var(--pergamena);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        footer p { font-size: 0.8rem; opacity: 0.7; }
+    </style>
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <a href="index.html" class="logo">
+                <div class="logo-text">Brevett<span>IA</span>mo</div>
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="pacchetti.html">Pacchetti</a>
+                <a href="servizi.html">Servizi</a>
+                <a href="abbonamenti.html">Abbonamenti</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Servizi Singoli</h1>
+        <p>Ogni servizio per ogni esigenza. Scegli quello che ti serve, quando ti serve. Tutti i servizi sono GRATUITI durante la fase beta.</p>
+    </div>
+
+    <section class="services-section">
+        <div class="section-header">
+            <h2>Tutti i Servizi</h2>
+            <p>20 servizi professionali per proteggere la tua invenzione</p>
+        </div>
+        <div class="services-grid" id="services-grid">
+            <!-- I 20 servizi verranno generati qui -->
+        </div>
+    </section>
+
+    <footer>
+        <p>2026 BrevettIAmo - Tutti i diritti riservati</p>
+    </footer>
+
+    <script src="js/services.js"></script>
+
+    <script>
+    // TOOLTIP INLINE - BrevettIAmo
+    let TOOLTIP_TESTI = {};
+
+    async function caricaTooltipTesti() {
+        try {
+            const response = await fetch('data/tooltip-testi.json?v=' + Date.now());
+            const data = await response.json();
+            TOOLTIP_TESTI = data['it'];
+            inizializzaTooltip();
+        } catch (e) {
+            console.error('Errore tooltip:', e);
+        }
+    }
+
+    function inizializzaTooltip() {
+        document.querySelectorAll('[data-tooltip-id]').forEach(card => {
+            const id = card.getAttribute('data-tooltip-id');
+            const dati = TOOLTIP_TESTI[id];
+            if (!dati) return;
+
+            card.setAttribute('data-tooltip', dati.light);
+
+            card.addEventListener('click', function(e) {
+                if (e.target.closest('a') || e.target.closest('button')) return;
+
+                let pannello = this.querySelector('.tooltip-pannello');
+                if (pannello) {
+                    pannello.remove();
+                    return;
+                }
+
+                pannello = document.createElement('div');
+                pannello.className = 'tooltip-pannello';
+                pannello.innerHTML = formattaTesto(dati.full) + 
+                    '<div style="margin-top:12px; display:flex; gap:8px; justify-content:flex-end;">' +
+                    '<button class="btn-chiudi">Chiudi</button>' +
+                    '<a href="welcome.html" class="btn-inizia">Inizia Ora</a>' +
+                    '</div>';
+
+                this.appendChild(pannello);
+
+                pannello.querySelector('.btn-chiudi').addEventListener('click', function() {
+                    pannello.remove();
+                });
+            });
+        });
+    }
+
+    function formattaTesto(testo) {
+        var html = testo.split("\n").join("<br>");
+        html = html.split("**").join("§§§").replace(/§§§([^§]+)§§§/g, "<strong>$1</strong>");
+        return html;
+    }
+
+    caricaTooltipTesti();
+    </script>
+
+</body>
+</html>
